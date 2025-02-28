@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">NARK</string>
+    <string name="title">국회정보</string>
+    <string name="bill_btn">법률안\n진행현황</string>
+    <string name="MP_btn">국회의원\n정보</string>
+    <string name="employ_btn">국회\n채용정보</string>
+    <string name="budget_btn">국회\n예산정보</string>
+    <string name="test_button">test_button</string>
+</resources>
