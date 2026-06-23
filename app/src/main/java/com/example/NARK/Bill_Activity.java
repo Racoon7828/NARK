@@ -49,21 +49,6 @@ public class Bill_Activity extends AppCompatActivity{
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         Bill_Data data = new Bill_Data(name, num, date, prp, prep, ra, dae, crd, proResult, proDate, url, view);
-
-
-        data.setbName(name);
-        data.setbNum(num);
-        data.setbDate(date);
-        data.setbPrp(prp);
-        data.setbPrep(prep);
-        data.setbRa(ra);
-        data.setbDae(dae);
-        data.setbCrd(crd);
-        data.setbProResult(proResult);
-        data.setbProDate(proDate);
-        data.setbUrl(url);
-        data.setViewType(view);
-
         bill_Adapter.addItem(data);
         bill_Adapter.notifyDataSetChanged();
     }

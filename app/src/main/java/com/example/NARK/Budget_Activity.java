@@ -2,7 +2,6 @@ package com.example.NARK;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -44,9 +43,7 @@ public class Budget_Activity extends AppCompatActivity {
 
         ///////////추가된 부분////////////
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        StrictMode.enableDefaults();
 
         Budget_List = new ArrayList<>();
 
