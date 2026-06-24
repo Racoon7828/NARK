@@ -61,21 +61,21 @@ Android Studio에서 프로젝트를 열고 Run 합니다.
 
 ## 리팩토링 기록
 
-처음 만들 때 동작에만 집중했던 코드를 아래 기준으로 개선했습니다.
+2021년 처음 만들 때 동작에만 집중했던 코드를 아래 기준으로 개선했습니다.
 
-### Before / After 비교
+### 이전 / 이후 비교
 
 #### 1. 네트워크 처리 — StrictMode 우회 → 비동기 처리
 
 ```java
-// Before: 메인 스레드에서 직접 HTTP 요청, ANR 위험
+// 이전: 네트워크 요청을 메인 스레드에서 직접 처리해서 앱이 멈추는 문제가 있었음
 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 StrictMode.setThreadPolicy(policy);
 // ... 메인 스레드에서 URL.openStream() 호출
 ```
 
 ```java
-// After: ExecutorService로 백그라운드 처리, 완료 후 Handler로 UI 업데이트
+// 이후: 백그라운드에서 데이터를 받아오고, 완료되면 메인 스레드에서 화면 갱신
 executor.execute(() -> {
     List<Bill_Data> results = fetchFromApi(pageIndex, searchText);
     mainHandler.post(() -> {
@@ -90,17 +90,17 @@ executor.execute(() -> {
 #### 2. API 키 관리 — 하드코딩 → BuildConfig 분리
 
 ```java
-// Before: 소스코드에 API 키 노출
+// 이전: API 키가 코드에 그대로 박혀 있으므로 GitHub에 올리면 바로 노출됨
 URL url = new URL("https://open.assembly.go.kr/...?KEY=8081b2b1c98c4e6d83be3454f1dfd506");
 ```
 
 ```java
-// After: local.properties → BuildConfig → 코드에서 참조 (키가 커밋에 포함되지 않음)
+// 이후: local.properties에 키 저장 => BuildConfig 참조 (키가 커밋에 포함되지 않도록 수정)
 URL url = new URL("https://open.assembly.go.kr/...?KEY=" + BuildConfig.ASSEMBLY_API_KEY);
 ```
 
 ```groovy
-// build.gradle: local.properties에서 읽어 BuildConfig에 주입
+// build.gradle에서 local.properties를 읽어 BuildConfig에 주입
 def localProps = new Properties()
 localPropsFile.withInputStream { localProps.load(it) }
 buildConfigField "String", "ASSEMBLY_API_KEY", localProps['ASSEMBLY_API_KEY'] ?: '""'
@@ -111,15 +111,15 @@ buildConfigField "String", "ASSEMBLY_API_KEY", localProps['ASSEMBLY_API_KEY'] ?:
 #### 3. 데이터 관리 — static List 남용 → 인스턴스 변수
 
 ```java
-// Before: 11개의 static List, Activity 재생성 시 데이터 오염 방지를 위해 onCreate마다 수동 clear()
+// 이전: static List를 11개나 선언했고, 화면을 다시 열 때 데이터가 중복되는 걸
+//       막으려고 onCreate마다 .clear()를 11번 직접 호출해야 했음
 static List<String> listBillName = new ArrayList<>();
 static List<Integer> listBillNo  = new ArrayList<>();
-// ... 9개 더
-// onCreate에서 11번 .clear() 호출
+// ...
 ```
 
 ```java
-// After: 파싱 결과를 로컬 List로 수집 후 어댑터에 전달, static 완전 제거
+// 이후: 파싱할 때마다 로컬 List를 새로 만들어서 쓰고 어댑터에 넘겨줌, static 완전 제거
 List<Bill_Data> results = new ArrayList<>();
 // ... 파싱 완료 후
 mainHandler.post(() -> {
@@ -130,36 +130,35 @@ mainHandler.post(() -> {
 
 ---
 
-#### 4. 성능 — 루프 안 정렬 제거
+#### 4. 성능 — 루프 안에서 매번 정렬 → 다 모은 뒤 한 번만 정렬
 
 ```java
-// Before: 아이템 추가할 때마다 전체 정렬 → O(n²log n)
+// 이전: 아이템을 하나 추가할 때마다 전체를 다시 정렬해서 불필요한 연산이 반복됐음
 for (int i = 0; i < list.size(); i++) {
     userList.add(...);
-    Collections.sort(userList, comparator); // 매 iteration마다 정렬
+    Collections.sort(userList, comparator);
 }
 ```
 
 ```java
-// After: 수집 완료 후 한 번만 정렬 → O(n log n)
-// ... 파싱 루프 (정렬 없음)
+// 이후: 다 불러온 다음에 한 번만 정렬
 Collections.sort(results, (o1, o2) -> o2.getbNum() - o1.getbNum());
 ```
 
 ---
 
-#### 5. 에러 처리 — 무시 → 사용자 알림
+#### 5. 에러 처리 — 무시 → 사용자에게 알림
 
 ```java
-// Before: 에러가 발생해도 빈 화면만 보임
-} catch (Exception e) {
+// 이전: 에러가 나도 그냥 넘어가서 왜 화면이 비어있는지 알 수 없었음
+ catch (Exception e) {
     System.out.println("에러");
 }
 ```
 
 ```java
-// After: 사용자에게 Toast로 알림
-} catch (Exception e) {
+// 이후: 실패하면 Toast로 사용자에게 알려줌
+ catch (Exception e) {
     mainHandler.post(() ->
         Toast.makeText(this, "데이터를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show()
     );
@@ -171,7 +170,7 @@ Collections.sort(results, (o1, o2) -> o2.getbNum() - o1.getbNum());
 #### 6. 코드 중복 제거
 
 ```java
-// Before: 생성자로 이미 값을 넘겼음에도 setter를 13번 중복 호출
+// 이전: 생성자에 이미 값을 다 넘겼는데 아래에서 setter로 똑같은 값을 또 넣고 있었음
 Bill_Data data = new Bill_Data(name, num, date, prp, prep, ra, dae, crd, ...);
 data.setbName(name);
 data.setbNum(num);
@@ -179,7 +178,7 @@ data.setbNum(num);
 ```
 
 ```java
-// After: 생성자 한 줄로 끝
+// 이후: 생성자 한 줄
 Bill_Data data = new Bill_Data(name, num, date, prp, prep, ra, dae, crd, ...);
 ```
 
@@ -189,5 +188,5 @@ Bill_Data data = new Bill_Data(name, num, date, prp, prep, ra, dae, crd, ...);
 
 | 브랜치 | 설명 |
 |--------|------|
-| `main` | 리팩토링 완료 버전 |
+| `main` | 리팩토링한 버전 |
 | `original` | 최초 작성 버전 (원본 보존) |

@@ -1,185 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
+
+    <ImageView
+        android:id="@+id/mp_activity_image"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="@null" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
 
-
-        <ImageView
-            android:id="@+id/mp_activity_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/line"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="이름 :"
-                    android:gravity="left"
-                    android:layout_gravity="center"
-                    android:textSize="30sp" />
-
-                <TextView
-                    android:id="@+id/mp_activity_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autoSizeTextType="uniform"
-                    android:textStyle="bold"
-                    android:gravity="left"
-                    android:textSize="30sp" />
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/line"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="정당 : "
-                    android:gravity="left"
-                    android:layout_gravity="center"
-                    android:textSize="30sp" />
-
-                <TextView
-                    android:id="@+id/mp_activity_PP"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autoSizeTextType="uniform"
-                    android:textStyle="bold"
-                    android:gravity="left"
-                    android:textSize="30sp" />
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/line"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="연락처 : "
-                    android:gravity="left"
-                    android:layout_gravity="center"
-                    android:textSize="30sp" />
-
-                <TextView
-                    android:id="@+id/mp_activity_phoneNum"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autoSizeTextType="uniform"
-                    android:textStyle="bold"
-                    android:gravity="left"
-                    android:textSize="30sp" />
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/line"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="이메일 : "
-                    android:gravity="left"
-                    android:layout_gravity="center"
-                    android:textSize="30sp" />
-
-                <TextView
-                    android:id="@+id/mp_activity_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autoSizeTextType="uniform"
-                    android:textStyle="bold"
-                    android:gravity="left"
-                    android:textSize="30sp" />
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/line"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="약력 : "
-                    android:gravity="left"
-                    android:layout_gravity="left|top"
-                    android:textSize="30sp" />
-
-                <TextView
-                    android:id="@+id/mp_activity_BF"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autoSizeTextType="uniform"
-                    android:textStyle="bold"
-                    android:gravity="left"
-                    android:textSize="30sp" />
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/line"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-            </LinearLayout>
-
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingTop="8dp" android:paddingBottom="8dp">
+            <TextView android:layout_width="80dp" android:layout_height="wrap_content" android:text="이름" android:textSize="13sp" android:textColor="#555555" android:textStyle="bold" />
+            <TextView android:id="@+id/mp_activity_name" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textSize="15sp" android:textColor="#1a1a2e" android:textStyle="bold" />
         </LinearLayout>
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" />
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingTop="8dp" android:paddingBottom="8dp">
+            <TextView android:layout_width="80dp" android:layout_height="wrap_content" android:text="정당" android:textSize="13sp" android:textColor="#555555" android:textStyle="bold" />
+            <TextView android:id="@+id/mp_activity_PP" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textSize="14sp" android:textColor="#1a1a2e" />
+        </LinearLayout>
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" />
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingTop="8dp" android:paddingBottom="8dp">
+            <TextView android:layout_width="80dp" android:layout_height="wrap_content" android:text="연락처" android:textSize="13sp" android:textColor="#555555" android:textStyle="bold" />
+            <TextView android:id="@+id/mp_activity_phoneNum" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textSize="14sp" android:textColor="#1a1a2e" />
+        </LinearLayout>
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" />
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingTop="8dp" android:paddingBottom="8dp">
+            <TextView android:layout_width="80dp" android:layout_height="wrap_content" android:text="이메일" android:textSize="13sp" android:textColor="#555555" android:textStyle="bold" />
+            <TextView android:id="@+id/mp_activity_email" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textSize="14sp" android:textColor="#1a1a2e" />
+        </LinearLayout>
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" />
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingTop="8dp" android:paddingBottom="8dp">
+            <TextView android:layout_width="80dp" android:layout_height="wrap_content" android:text="약력" android:textSize="13sp" android:textColor="#555555" android:textStyle="bold" />
+            <TextView android:id="@+id/mp_activity_BF" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textSize="14sp" android:textColor="#1a1a2e" android:lineSpacingExtra="4dp" />
+        </LinearLayout>
+
     </LinearLayout>
-</RelativeLayout>
+
+</LinearLayout>

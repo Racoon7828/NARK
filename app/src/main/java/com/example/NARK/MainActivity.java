@@ -2,7 +2,7 @@ package com.example.NARK;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,28 +13,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button bill_btn = (Button) findViewById(R.id.Bill_btn);
-        bill_btn.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), Bill_Main.class);
-            startActivity(intent);
+        findViewById(R.id.Bill_btn).setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), Bill_Main.class));
         });
 
-        Button MP_btn = (Button) findViewById(R.id.MP_btn);
-        MP_btn.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), Mp_Info_Main.class);
-            startActivity(intent);
+        findViewById(R.id.MP_btn).setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), Mp_Info_Main.class));
         });
 
-        Button Budget_btn = (Button) findViewById(R.id.Budget_btn);
-        Budget_btn.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), Budget_Info.class);
-            startActivity(intent);
+        findViewById(R.id.Budget_btn).setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), Budget_Info.class));
         });
 
-        Button Employ_btn = (Button) findViewById(R.id.Employ_btn);
-        Employ_btn.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), Employ_Main.class);
-            startActivity(intent);
+        findViewById(R.id.Employ_btn).setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), Employ_Main.class));
         });
     }
 }
